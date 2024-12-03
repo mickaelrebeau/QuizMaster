@@ -1,0 +1,34 @@
+{
+  "onboarding": {
+    "message": "Bienvenue sur Obytes Boilerplate"
+  },
+  "settings": {
+    "about": "A propos",
+    "app_name": "Nom de l'application",
+    "arabic": "Arabe",
+    "english": "Anglais",
+    "french": "Français",
+    "generale": "Général",
+    "github": "Github",
+    "language": "Langue",
+    "links": "Liens",
+    "logout": "Se déconnecter",
+    "more": "Plus",
+    "privacy": "Politique de confidentialité",
+    "rate": "Noter",
+    "share": "Partager",
+    "support": "Support",
+    "support_us": "Supportez-nous",
+    "terms": "Conditions d'utilisation",
+    "theme": {
+      "dark": "Sombre",
+      "light": "Lumineux",
+      "system": "Système",
+      "title": "Thème"
+    },
+    "title": "Paramètres",
+    "version": "Version",
+    "website": "Site web"
+  },
+  "welcome": "Bienvenue sur Obytes Boilerplate"
+}
