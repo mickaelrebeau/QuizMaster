@@ -25,4 +25,4 @@ expo-env.d.ts
 .env.production
 .env.staging
 
-pnpm-lock.yaml
+/android

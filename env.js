@@ -37,8 +37,8 @@ require('dotenv').config({
 const BUNDLE_ID = 'com.reactnativeboilerplate'; // ios bundle id
 const PACKAGE = 'com.reactnativeboilerplate'; // android package name
 const NAME = 'ReactNativeBoilerplate'; // app name
-const EXPO_ACCOUNT_OWNER = 'expo-owner'; // expo account owner
-const EAS_PROJECT_ID = 'c3e1075b-6fe7-4686-aa49-35b46a229044'; // eas project id
+const EXPO_ACCOUNT_OWNER = 'mike_dreeman'; // expo account owner
+const EAS_PROJECT_ID = '7ab3b63f-16ce-4a81-8a44-f74cdc1c634e'; // eas project id
 const SCHEME = 'ReactNativeBoilerplate'; // app scheme
 
 /**
