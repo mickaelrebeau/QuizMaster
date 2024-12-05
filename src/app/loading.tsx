@@ -1,7 +1,14 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { Html,OrbitControls } from '@react-three/drei';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, Html } from '@react-three/drei';
-import * as THREE from 'three';
+import { useLoader } from '@react-three/fiber';
+import React, { useEffect, useRef, useState } from 'react';
+import type * as THREE from 'three';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+
+function Model() {
+  const gltf = useLoader(GLTFLoader, '/models/solar-system.glb');
+  return <primitive object={gltf.scene} />;
+}
 
 function LoadingIndicator() {
   const [progress, setProgress] = useState(0);
@@ -22,12 +29,15 @@ function LoadingIndicator() {
 
   return (
     <Html center>
-      <p style={{ color: 'white' }}>Chargement... {Math.round(progress)}%</p>
+      <div className='flex flex-col items-center'>
+        <div className='size-10 animate-spin rounded-full border-4 border-t-blue-500'></div>
+        <p style={{ color: 'white' }}>{Math.round(progress)}%</p>
+      </div>
     </Html>
   );
 }
 
-function RotatingCube() {
+function RotatingModel() {
   const meshRef = useRef<THREE.Mesh>(null);
 
   useFrame(() => {
@@ -39,7 +49,7 @@ function RotatingCube() {
 
   return (
     <mesh ref={meshRef}>
-      <boxGeometry args={[1, 1, 1]} />
+      <Model />
       <meshStandardMaterial color="blue" />
     </mesh>
   );
@@ -47,11 +57,15 @@ function RotatingCube() {
 
 export default function LoadingScreen() {
   return (
-    <Canvas style={{ flex: 1 }} camera={{ position: [0, 0, 5] }} gl={{ antialias: true }}>
+    <Canvas
+      style={{ flex: 1 }}
+      camera={{ position: [0, 0, 15] }}
+      gl={{ antialias: true }}
+    >
       <color attach="background" args={['#111']} />
       <ambientLight intensity={0.5} />
       <pointLight position={[10, 10, 10]} />
-      <RotatingCube />
+      <RotatingModel />
       <OrbitControls />
       <LoadingIndicator />
     </Canvas>
