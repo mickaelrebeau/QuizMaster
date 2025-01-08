@@ -8,6 +8,8 @@ import {
   Settings as SettingsIcon,
   Style as StyleIcon,
 } from '@/components/ui/icons';
+import { Chat } from '@/components/ui/icons/chat';
+import { Home } from '@/components/ui/icons/home';
 import { useAuth, useIsFirstTime } from '@/lib';
 
 export default function TabLayout() {
@@ -33,6 +35,15 @@ export default function TabLayout() {
   return (
     <Tabs>
       <Tabs.Screen
+        name="chats"
+        options={{
+          title: 'Chat',
+          headerShown: false,
+          tabBarIcon: ({ color }) => <Chat color={color} />,
+          tabBarButtonTestID: 'chat-tab',
+        }}
+      />
+      <Tabs.Screen
         name="index"
         options={{
           title: 'Feed',
@@ -41,7 +52,15 @@ export default function TabLayout() {
           tabBarButtonTestID: 'feed-tab',
         }}
       />
-
+      <Tabs.Screen
+        name="home"
+        options={{
+          title: 'Home',
+          headerShown: false,
+          tabBarIcon: ({ color }) => <Home color={color} />,
+          tabBarButtonTestID: 'home-tab',
+        }}
+      />
       <Tabs.Screen
         name="style"
         options={{
