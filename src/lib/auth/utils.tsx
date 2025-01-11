@@ -7,6 +7,12 @@ export type TokenType = {
   refresh: string;
 };
 
+export type SignUpType = {
+  name: string;
+  email: string;
+  password: string;
+}
+
 export const getToken = () => getItem<TokenType>(TOKEN);
 export const removeToken = () => removeItem(TOKEN);
 export const setToken = (value: TokenType) => setItem<TokenType>(TOKEN, value);
