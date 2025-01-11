@@ -61,7 +61,7 @@ export default function Onboarding() {
           label={translate('onboarding.join')}
           onPress={() => {
             setIsFirstTime(false);
-            router.replace('/login');
+            router.replace('/signup');
           }}
         />
       </SafeAreaView>
