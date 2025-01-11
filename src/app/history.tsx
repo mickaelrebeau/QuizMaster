@@ -7,13 +7,20 @@ import { FlatList, Modal, Pressable } from 'react-native';
 
 import { FocusAwareStatusBar, Text, View } from '@/components/ui';
 
+type Question = {
+  question: string;
+  response: string;
+  correctAnswer: string;
+  correct: boolean;
+};
+
 type HistoryItem = {
   id: string;
   topic: string;
   score: number;
   total: number;
   date: string;
-  questions: { question: string; response: string; correct: boolean }[];
+  questions: Question[];
 };
 
 export default function History() {
@@ -28,16 +35,19 @@ export default function History() {
         {
           question: 'Who was the first president of the United States?',
           response: 'George Washington',
+          correctAnswer: 'George Washington',
           correct: true,
         },
         {
           question: 'When was the Declaration of Independence signed?',
           response: '1776',
+          correctAnswer: '1776',
           correct: true,
         },
         {
           question: 'Which war ended in 1945?',
-          response: 'World War II',
+          response: 'World War I',
+          correctAnswer: 'World War II',
           correct: false,
         },
       ],
@@ -52,16 +62,19 @@ export default function History() {
         {
           question: 'Who is the founder of Microsoft?',
           response: 'Bill Gates',
+          correctAnswer: 'Bill Gates',
           correct: true,
         },
         {
           question: 'What does HTTP stand for?',
           response: 'HyperText Transfer Protocol',
+          correctAnswer: 'HyperText Transfer Protocol',
           correct: true,
         },
         {
           question: 'What year was the first iPhone released?',
-          response: '2007',
+          response: '2012',
+          correctAnswer: '2007',
           correct: false,
         },
       ],
@@ -76,16 +89,19 @@ export default function History() {
         {
           question: 'Who directed "Inception"?',
           response: 'Christopher Nolan',
+          correctAnswer: 'Christopher Nolan',
           correct: true,
         },
         {
           question: 'Which actor played Iron Man?',
           response: 'Robert Downey Jr.',
+          correctAnswer: 'Robert Downey Jr.',
           correct: true,
         },
         {
           question: 'What year was "Titanic" released?',
-          response: '1997',
+          response: '1986',
+          correctAnswer: '1997',
           correct: false,
         },
       ],
@@ -149,7 +165,7 @@ export default function History() {
         animationType="slide"
         onRequestClose={closeModal}
       >
-        <View className="flex-1 justify-center bg-white px-6 dark:bg-neutral-950">
+        <View className="flex-1 justify-center bg-white px-6 dark:bg-neutral-900">
           <View className="rounded-lgp-6">
             <View className="mb-8 flex-row items-center justify-between">
               <Text className="text-xl font-bold text-violet-600">
@@ -164,9 +180,12 @@ export default function History() {
               data={selectedQuiz?.questions}
               keyExtractor={(_, index) => index.toString()}
               renderItem={({ item, index }) => (
-                <View className="mb-4">
+                <View className="mb-4 rounded border border-slate-300 p-4 shadow">
                   <Text className="text-gray-700">
                     {index + 1}. {item.question}
+                  </Text>
+                  <Text className="mt-1 text-gray-500">
+                    Correct Answer: {item.correctAnswer}
                   </Text>
                   <Text className="mt-1 text-gray-500">
                     Your Answer: {item.response}
