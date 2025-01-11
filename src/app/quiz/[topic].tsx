@@ -1,7 +1,8 @@
+/* eslint-disable tailwindcss/migration-from-tailwind-2 */
 /* eslint-disable max-lines-per-function */
-import { Stack, useLocalSearchParams } from 'expo-router';
+import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import React from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, Modal } from 'react-native';
 
 import { Button, Radio, Text, View } from '@/components/ui';
 
@@ -13,10 +14,13 @@ type QuestionItem = {
 };
 
 export default function QuizPage() {
+  const router = useRouter();
   const { topic, questions, difficulty } = useLocalSearchParams();
   const [selectedAnswers, setSelectedAnswers] = React.useState<{
     [key: string]: string;
   }>({});
+  const [showResults, setShowResults] = React.useState(false);
+  const [score, setScore] = React.useState<number | null>(null);
 
   const shuffleArray = (array: string[]) => {
     return array
@@ -109,9 +113,24 @@ export default function QuizPage() {
     </View>
   );
 
+  const calculateScore = () => {
+    const correctAnswers = data.reduce((count, question) => {
+      if (selectedAnswers[question.id] === question.correctAnswer) {
+        return count + 1;
+      }
+      return count;
+    }, 0);
+    setScore(correctAnswers);
+  };
+
   const handleSubmit = () => {
-    console.log('Selected Answers:', selectedAnswers);
-    alert('Answers submitted!');
+    calculateScore();
+    setShowResults(true);
+  };
+
+  const closeModal = () => {
+    setShowResults(false);
+    router.push('/');
   };
 
   return (
@@ -138,6 +157,48 @@ export default function QuizPage() {
         }
       />
       <Button label="Submit Answers" onPress={handleSubmit} className="mt-4" />
+
+      <Modal
+        visible={showResults}
+        transparent={true}
+        animationType="slide"
+        onRequestClose={closeModal}
+      >
+        <View className="flex-1 items-center justify-center bg-white dark:bg-neutral-900">
+          <View className="w-100 p-6">
+            <Text className="text-center text-2xl font-bold text-violet-600">
+              Quiz Results
+            </Text>
+            <Text className="mt-4 text-lg">
+              Score: {score} / {data.length}
+            </Text>
+            {data.map((question) => (
+              <View key={question.id} className="mt-4">
+                <Text className="font-bold">{question.question}</Text>
+                <Text>
+                  Your Answer:{' '}
+                  <Text
+                    className={
+                      selectedAnswers[question.id] === question.correctAnswer
+                        ? 'text-green-600'
+                        : 'text-red-600'
+                    }
+                  >
+                    {selectedAnswers[question.id] || 'No answer selected'}
+                  </Text>
+                </Text>
+                <Text>
+                  Correct Answer:{' '}
+                  <Text className="text-green-600">
+                    {question.correctAnswer}
+                  </Text>
+                </Text>
+              </View>
+            ))}
+            <Button label="Close" onPress={closeModal} className="mt-4" />
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }
