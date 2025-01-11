@@ -1,6 +1,22 @@
 {
+  "login": {
+    "description": "Bienvenue! 👋 C'est une démo de page de connexion! Utilisez n'importe quelle email et mot de passe pour vous connecter.",
+    "email": "Email",
+    "login": "Se connecter",
+    "name": "Nom",
+    "password": "Mot de passe",
+    "title": "Connexion"
+  },
   "onboarding": {
-    "message": "Bienvenue sur Obytes Boilerplate"
+    "features": {
+      "four": "Suivez votre progression",
+      "one": "Quiz personnalisés",
+      "three": "D'innombrables sujets à explorer",
+      "two": "Apprenez en vous amusant"
+    },
+    "join": "Rejoignez la communauté",
+    "message": "Testez vos connaissances sur n'importe quel sujet et défiez-vous avec des questions alimentées par l'IA.",
+    "title": "QuizMaster AI"
   },
   "settings": {
     "about": "A propos",
@@ -29,6 +45,15 @@
     "title": "Paramètres",
     "version": "Version",
     "website": "Site web"
+  },
+  "signup": {
+    "description": "Créez votre compte pour accéder à la plateforme de quiz.",
+    "email": "Email",
+    "name": "Nom",
+    "password": "Mot de passe",
+    "passwordConfirm": "Confirmer le mot de passe",
+    "signup": "S'inscrire",
+    "title": "Inscription"
   },
   "welcome": "Bienvenue sur Obytes Boilerplate"
 }
