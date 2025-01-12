@@ -20,6 +20,7 @@ export default function NewQuiz() {
   const modal = useModal();
   const modal2 = useModal();
   const modal3 = useModal();
+  const [alertMessage, setAlertMessage] = useState<string>('');
   const [selectedTopic, setSelectedTopic] = useState<{
     label: string;
     value: string | number;
@@ -99,7 +100,7 @@ export default function NewQuiz() {
   const handleStartQuiz = () => {
     const topic = customTopic || selectedTopic?.value;
     if (!topic) {
-      alert('Please select or enter a topic to start the quiz!');
+      setAlertMessage('Please select or enter a topic to start the quiz!');
       return;
     }
     router.push(
@@ -120,6 +121,9 @@ export default function NewQuiz() {
         <Text className="mt-4 text-center text-lg text-gray-500">
           Choose a topic below or write your own!
         </Text>
+        {alertMessage && (
+          <Text className="mt-4 text-center text-red-500">{alertMessage}</Text>
+        )}
         <View className="mt-6">
           <Text className="text-lg font-semibold text-gray-700">
             Predefined Topics:
