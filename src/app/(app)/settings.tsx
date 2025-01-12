@@ -1,5 +1,6 @@
 /* eslint-disable react/react-in-jsx-scope */
 import { Env } from '@env';
+import { useRouter } from 'expo-router';
 import { useColorScheme } from 'nativewind';
 
 import { Item } from '@/components/settings/item';
@@ -17,6 +18,7 @@ import { Github, Rate, Share, Support, Website } from '@/components/ui/icons';
 import { translate, useAuth } from '@/lib';
 
 export default function Settings() {
+  const router = useRouter();
   const signOut = useAuth.use.signOut();
   const { colorScheme } = useColorScheme();
   const iconColor =
@@ -54,7 +56,7 @@ export default function Settings() {
             <Item
               text="settings.support"
               icon={<Support color={iconColor} />}
-              onPress={() => {}}
+              onPress={() => { router.push('https://streamlabs.com/mike_dreeman/tip'); }}
             />
           </ItemsContainer>
 
@@ -64,7 +66,7 @@ export default function Settings() {
             <Item
               text="settings.github"
               icon={<Github color={iconColor} />}
-              onPress={() => {}}
+              onPress={() => { router.push('https://github.com/mickaelrebeau/QuizMaster'); }}
             />
             <Item
               text="settings.website"
