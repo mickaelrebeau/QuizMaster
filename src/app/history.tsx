@@ -175,6 +175,14 @@ export default function History() {
                 <Ionicons name="close" size={24} color="gray" />
               </Pressable>
             </View>
+            <View className='mb-4'>
+              <Text className="text-gray-700">
+                Score: {selectedQuiz?.score}/{selectedQuiz?.total}
+              </Text>
+              <Text className="text-gray-500">
+                Date: {selectedQuiz?.date}
+              </Text>
+            </View>
 
             <FlatList
               data={selectedQuiz?.questions}
