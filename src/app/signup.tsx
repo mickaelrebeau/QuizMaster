@@ -1,5 +1,6 @@
 import { useRouter } from 'expo-router';
 import React from 'react';
+import { showMessage } from 'react-native-flash-message';
 
 import type { SignupFormProps } from '@/components/signup-form';
 import { SignupForm } from '@/components/signup-form';
@@ -8,12 +9,23 @@ import { useAuth } from '@/lib';
 
 export default function Signup() {
   const router = useRouter();
-  const signUp = useAuth.use.signUp(); // Assuming `useAuth` has a `signUp` method
+  const signUp = useAuth.use.signUp(); 
 
-  const onSubmit: SignupFormProps['onSubmit'] = (data) => {
+  const onSubmit: SignupFormProps['onSubmit'] = async (data) => {
     console.log(data);
-    signUp({ ...data }); // Replace with appropriate sign-up logic
-    router.push('/login'); // Redirect to login after successful signup
+    try {
+      await signUp(data);
+      showMessage({
+        message: 'Sign-up successful! Please check your email to verify your account.',
+        type: 'success',
+      });
+      router.push('/login');
+    } catch (error) { 
+      showMessage({
+        message: 'Sign-up failed!',
+        type: 'danger',
+      });
+    } 
   };
 
   return (
