@@ -5,113 +5,32 @@ import { Stack } from 'expo-router';
 import React, { useState } from 'react';
 import { FlatList, Modal, Pressable } from 'react-native';
 
+import { getUserQuizzes } from '@/api/quiz';
 import { FocusAwareStatusBar, Text, View } from '@/components/ui';
+import { type userQuizType } from '@/types';
 
-type Question = {
-  question: string;
-  response: string;
-  correctAnswer: string;
-  correct: boolean;
-};
-
-type HistoryItem = {
-  id: string;
-  topic: string;
-  score: number;
-  total: number;
-  date: string;
-  questions: Question[];
-};
 
 export default function History() {
-  const [history, _setHistory] = useState([
-    {
-      id: '1',
-      topic: 'History',
-      score: 8,
-      total: 10,
-      date: '2025-01-07',
-      questions: [
-        {
-          question: 'Who was the first president of the United States?',
-          response: 'George Washington',
-          correctAnswer: 'George Washington',
-          correct: true,
-        },
-        {
-          question: 'When was the Declaration of Independence signed?',
-          response: '1776',
-          correctAnswer: '1776',
-          correct: true,
-        },
-        {
-          question: 'Which war ended in 1945?',
-          response: 'World War I',
-          correctAnswer: 'World War II',
-          correct: false,
-        },
-      ],
-    },
-    {
-      id: '2',
-      topic: 'Technology',
-      score: 7,
-      total: 10,
-      date: '2025-01-06',
-      questions: [
-        {
-          question: 'Who is the founder of Microsoft?',
-          response: 'Bill Gates',
-          correctAnswer: 'Bill Gates',
-          correct: true,
-        },
-        {
-          question: 'What does HTTP stand for?',
-          response: 'HyperText Transfer Protocol',
-          correctAnswer: 'HyperText Transfer Protocol',
-          correct: true,
-        },
-        {
-          question: 'What year was the first iPhone released?',
-          response: '2012',
-          correctAnswer: '2007',
-          correct: false,
-        },
-      ],
-    },
-    {
-      id: '3',
-      topic: 'Cinema',
-      score: 6,
-      total: 10,
-      date: '2025-01-05',
-      questions: [
-        {
-          question: 'Who directed "Inception"?',
-          response: 'Christopher Nolan',
-          correctAnswer: 'Christopher Nolan',
-          correct: true,
-        },
-        {
-          question: 'Which actor played Iron Man?',
-          response: 'Robert Downey Jr.',
-          correctAnswer: 'Robert Downey Jr.',
-          correct: true,
-        },
-        {
-          question: 'What year was "Titanic" released?',
-          response: '1986',
-          correctAnswer: '1997',
-          correct: false,
-        },
-      ],
-    },
-  ]);
-
-  const [selectedQuiz, setSelectedQuiz] = useState<HistoryItem | null>(null);
+  const [history, setHistory] = useState<userQuizType[] | null>(null);
+  const [selectedQuiz, setSelectedQuiz] = useState<userQuizType | null>(null);
   const [isModalVisible, setModalVisible] = useState(false);
 
-  const openModal = (quiz: HistoryItem): void => {
+  React.useEffect(() => {
+    const getHistory = async () => {
+      try {
+        const history = await getUserQuizzes();
+        if (history) {
+          setHistory(history);
+        }
+      } catch (error) {
+        console.error('Error getting quiz history:', error);
+      }
+    };
+
+    getHistory();
+  }, []);
+
+  const openModal = (quiz: userQuizType): void => {
     setSelectedQuiz(quiz as any);
     setModalVisible(true);
   };
@@ -121,13 +40,12 @@ export default function History() {
     setSelectedQuiz(null);
   };
 
-  const renderItem = ({ item }: { item: HistoryItem }) => (
+  const renderItem = ({ item }: { item: userQuizType }) => (
     <View className="mb-4 rounded-lg p-4 shadow-md dark:bg-neutral-900">
       <Text className="text-lg font-bold text-violet-600">{item.topic}</Text>
       <Text className="text-gray-700">
-        Score: {item.score}/{item.total}
+        Score: {item.score}/{item.userAnswers.length}
       </Text>
-      <Text className="text-base text-gray-400">Date: {item.date}</Text>
       <Pressable onPress={() => openModal(item)}>
         <Text className="text-right text-lg text-gray-500">
           View questions {'->'}
@@ -149,7 +67,7 @@ export default function History() {
 
       <FlatList
         data={history}
-        keyExtractor={(item: { id: string }) => item.id}
+        keyExtractor={(item: userQuizType) => item.topic || ''}
         renderItem={renderItem}
         contentContainerStyle={{ paddingHorizontal: 16, paddingBottom: 16 }}
         ListEmptyComponent={
@@ -175,17 +93,14 @@ export default function History() {
                 <Ionicons name="close" size={24} color="gray" />
               </Pressable>
             </View>
-            <View className='mb-4'>
+            <View className="mb-4">
               <Text className="text-gray-700">
-                Score: {selectedQuiz?.score}/{selectedQuiz?.total}
-              </Text>
-              <Text className="text-gray-500">
-                Date: {selectedQuiz?.date}
+                Score: {selectedQuiz?.score}/{selectedQuiz?.userAnswers.length}
               </Text>
             </View>
 
             <FlatList
-              data={selectedQuiz?.questions}
+              data={selectedQuiz?.userAnswers}
               keyExtractor={(_, index) => index.toString()}
               renderItem={({ item, index }) => (
                 <View className="mb-4 rounded border border-slate-300 p-4 shadow">
@@ -196,14 +111,14 @@ export default function History() {
                     Correct Answer: {item.correctAnswer}
                   </Text>
                   <Text className="mt-1 text-gray-500">
-                    Your Answer: {item.response}
+                    Your Answer: {item.userAnswer}
                   </Text>
                   <Text
                     className={`mt-2 text-right ${
-                      item.correct ? 'text-green-600' : 'text-red-600'
+                      item.userAnswer ? 'text-green-600' : 'text-red-600'
                     }`}
                   >
-                    {item.correct ? 'Correct' : 'Incorrect'}
+                    {item.userAnswer ? 'Correct' : 'Incorrect'}
                   </Text>
                 </View>
               )}
