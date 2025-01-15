@@ -11,11 +11,6 @@ import { translate } from '@/lib';
 // Validation Schema
 const schema = z
   .object({
-    name: z
-      .string({
-        required_error: 'Name is required',
-      })
-      .min(2, 'Name must be at least 2 characters'),
     email: z
       .string({
         required_error: 'Email is required',
@@ -67,14 +62,6 @@ export const SignupForm = ({ onSubmit = () => {} }: SignupFormProps) => {
             {translate('signup.description')}
           </Text>
         </View>
-
-        <ControlledInput
-          testID="name-input"
-          control={control}
-          name="name"
-          label={translate('signup.name')}
-          placeholder="Your full name"
-        />
 
         <ControlledInput
           testID="email-input"

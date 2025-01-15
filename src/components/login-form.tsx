@@ -9,7 +9,6 @@ import { Button, ControlledInput, Text, View } from '@/components/ui';
 import { translate } from '@/lib';
 
 const schema = z.object({
-  name: z.string().optional(),
   email: z
     .string({
       required_error: 'Email is required',
@@ -53,18 +52,12 @@ export const LoginForm = ({ onSubmit = () => {} }: LoginFormProps) => {
         </View>
 
         <ControlledInput
-          testID="name"
-          control={control}
-          name="name"
-          label={translate('login.name')}
-        />
-
-        <ControlledInput
           testID="email-input"
           control={control}
           name="email"
           label={translate('login.email')}
         />
+
         <ControlledInput
           testID="password-input"
           control={control}
@@ -73,6 +66,7 @@ export const LoginForm = ({ onSubmit = () => {} }: LoginFormProps) => {
           placeholder="***"
           secureTextEntry={true}
         />
+        
         <Button
           className="mt-6 rounded-xl"
           testID="login-button"
