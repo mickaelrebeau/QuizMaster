@@ -1,7 +1,9 @@
 /* eslint-disable max-lines-per-function */
 import { Stack, useRouter } from 'expo-router';
 import React, { useState } from 'react';
+import { showMessage } from 'react-native-flash-message';
 
+import { run, saveGeneratedQuiz } from '@/api/quiz';
 import { Item } from '@/components/new-quiz/item';
 import {
   Button,
@@ -14,13 +16,14 @@ import {
   useModal,
   View,
 } from '@/components/ui';
+import { type QuizDatatype } from '@/types';
 
 export default function NewQuiz() {
   const router = useRouter();
   const modal = useModal();
   const modal2 = useModal();
   const modal3 = useModal();
-  const [alertMessage, setAlertMessage] = useState<string>('');
+  const [isLoading, setIsLoading] = useState(false);
   const [selectedTopic, setSelectedTopic] = useState<{
     label: string;
     value: string | number;
@@ -97,17 +100,54 @@ export default function NewQuiz() {
     [modal3],
   );
 
-  const handleStartQuiz = () => {
-    const topic = customTopic || selectedTopic?.value;
+  const handleStartQuiz = async () => {
+    setIsLoading(true);
+    const topic = customTopic || selectedTopic?.label;
     if (!topic) {
-      setAlertMessage('Please select or enter a topic to start the quiz!');
+      showMessage({
+        message: 'Please select or enter a topic to start the quiz!',
+        type: 'danger',
+      });
+      setIsLoading(true);
       return;
     }
-    router.push(
-      `/quiz/${encodeURIComponent(topic)}?questions=${encodeURIComponent(
-        questionsNumber.value,
-      )}&difficulty=${encodeURIComponent(difficulty.value)}`,
-    );
+
+    const data = {
+      topic: topic,
+      difficulty: difficulty.value,
+      numberOfQuestions: questionsNumber.value,
+    };
+
+    try {
+      const response = await run(data);
+      console.log('Type of Response', typeof response);
+
+      const jsonResponse = JSON.stringify(response);
+      const parseResponse = JSON.parse(
+        jsonResponse.replace('```json', '').replace('```', ''),
+      );
+
+      const parsedData = JSON.parse(parseResponse as string) as QuizDatatype;
+      saveGeneratedQuiz(parsedData);
+
+      setIsLoading(false);
+      router.push({
+        pathname: `/quiz/[topic]`,
+        params: {
+          topic:
+            topic.toLowerCase().replace(/\s/g, '-') ||
+            customTopic.toLowerCase().replace(/\s/g, '-'),
+          data: parseResponse,
+        },
+      });
+    } catch (error) {
+      console.error(error);
+      showMessage({
+        message: 'Something went wrong while fetching the quiz!',
+        type: 'danger',
+      });
+      setIsLoading(true);
+    }
   };
 
   return (
@@ -121,9 +161,6 @@ export default function NewQuiz() {
         <Text className="mt-4 text-center text-lg text-gray-500">
           Choose a topic below or write your own!
         </Text>
-        {alertMessage && (
-          <Text className="mt-4 text-center text-red-500">{alertMessage}</Text>
-        )}
         <View className="mt-6">
           <Text className="text-lg font-semibold text-gray-700">
             Predefined Topics:
@@ -197,6 +234,7 @@ export default function NewQuiz() {
         label="Start Quiz 🎮"
         onPress={handleStartQuiz}
         className="mt-6 w-full"
+        loading={isLoading}
       />
     </View>
   );
