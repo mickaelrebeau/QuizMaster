@@ -1,3 +1,4 @@
+/* eslint-disable max-lines-per-function */
 import { useRouter } from 'expo-router';
 import LottieView from 'lottie-react-native';
 import React from 'react';
@@ -21,7 +22,7 @@ export default function Onboarding() {
     <View className="flex h-full items-center justify-center py-8">
       <FocusAwareStatusBar />
       <View className="px-4">
-        <Text className="mb-3 text-center text-4xl font-extrabold text-violet-600">
+        <Text className="mb-3 text-center text-4xl font-bold text-violet-600">
           {translate('onboarding.title')}
         </Text>
         <Text className="mb-5 text-center text-lg text-gray-600">
@@ -64,10 +65,19 @@ export default function Onboarding() {
             router.replace('/signup');
           }}
         />
+        <View className="my-6 w-full border-b border-slate-300" />
+        <Text>{translate('onboarding.already')} </Text>
+        <Button
+          label={translate('onboarding.login')}
+          onPress={() => {
+            setIsFirstTime(false);
+            router.replace('/login');
+          }}
+        />
       </SafeAreaView>
       <SafeAreaView className="mt-8 w-full">
         <Text className="text-center text-sm text-gray-400">
-          Powered by AI | © 2025 QuizMaster
+          {translate('onboarding.powered')}
         </Text>
       </SafeAreaView>
     </View>
