@@ -38,7 +38,7 @@ const BUNDLE_ID = 'com.quizmaster'; // ios bundle id
 const PACKAGE = 'com.quizmaster'; // android package name
 const NAME = 'QuizMaster'; // app name
 const EXPO_ACCOUNT_OWNER = 'mike_dreeman'; // expo account owner
-const EAS_PROJECT_ID = '7ab3b63f-16ce-4a81-8a44-f74cdc1c634e'; // eas project id
+const EAS_PROJECT_ID = '767b3951-fb6e-4e78-80c2-b81a4e1d770a'; // eas project id
 const SCHEME = 'QuizMaster'; // app scheme
 
 /**
