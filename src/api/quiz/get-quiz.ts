@@ -1,14 +1,12 @@
-import { type userQuizType } from "@/types";
+/* eslint-disable max-lines-per-function */
+import { type QuizType, type userQuizType } from "@/types";
 import { getUserId, supabase } from "@/utils/supabase";
 
-/* eslint-disable max-lines-per-function */
-const { GoogleGenerativeAI } = require('@google/generative-ai');
-
-type QuizType = {
-  topic: string | number;
-  difficulty: string | number;
-  numberOfQuestions: string | number;
-}
+const {
+  GoogleGenerativeAI,
+  HarmCategory,
+  HarmBlockThreshold,
+} = require('@google/generative-ai');
 
 const apiKey = process.env.GEMINI_API_KEY;
 
@@ -24,6 +22,7 @@ Input:
 - Topic: ${data.topic}
 - Difficulty: ${data.difficulty}
 - Number of Questions: ${data.numberOfQuestions}
+- Language: ${data.language}
 
 Output:
 {
@@ -49,6 +48,7 @@ Output:
 Constraints:
 - Ensure that the incorrect answers are plausible but clearly distinguishable from the correct answer.
 - Avoid repeated questions or very similar phrasing.
+- Avoid repeating answers.
 - Align the difficulty of the questions with the specified level (e.g., "easy" questions should be straightforward, "hard" questions should be more challenging).
 - Keep the questions engaging and accurate based on the topic.
 
@@ -90,10 +90,17 @@ Example Output:
   ]
 }
 
-Use this format to generate quiz questions for any given topic, difficulty, and number of questions.
+Use this format to generate quiz questions for any given topic, difficulty, and number of questions in the correct language (ex: if language = 'en' then the quiz as to be in english).
 `;
 
-  const result = await model.generateContent(prompt);
+  const result = await model.generateContent(prompt, {
+    safetySettings: [
+      {
+        category: HarmCategory.DANGEROUS_CONTENT,
+        threshold: HarmBlockThreshold.BLOCK_ONLY_HIGH,
+      },
+    ],
+  });
   const response = await result.response;
   const text = response.text();
 
