@@ -17,7 +17,7 @@ export default function Instructions() {
       <FocusAwareStatusBar />
 
       <View className="w-full px-6 py-8">
-        <Text className="text-center text-4xl font-extrabold text-violet-600">
+        <Text className="text-center text-4xl font-bold text-violet-600">
           How to Play ?
         </Text>
       </View>
