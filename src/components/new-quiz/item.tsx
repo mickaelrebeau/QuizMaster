@@ -1,11 +1,11 @@
 import * as React from 'react';
+import { Text } from 'react-native';
 
-import { Pressable, Text, View } from '@/components/ui';
+import { Pressable, View } from '@/components/ui';
 import { ArrowRight } from '@/components/ui/icons';
-import type { TxKeyPath } from '@/lib';
 
 type ItemProps = {
-  text: TxKeyPath;
+  text: string;
   value?: string;
   onPress?: () => void;
   icon?: React.ReactNode;
@@ -21,7 +21,7 @@ export const Item = ({ text, value, icon, onPress }: ItemProps) => {
     >
       <View className="flex-row items-center">
         {icon && <View className="pr-2">{icon}</View>}
-        <Text tx={text} />
+        <Text className="text-neutral-900 dark:text-white">{text}</Text>
       </View>
       <View className="flex-row items-center">
         <Text className="text-neutral-600 dark:text-white">{value}</Text>

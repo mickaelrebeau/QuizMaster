@@ -13,7 +13,9 @@ import { KeyboardProvider } from 'react-native-keyboard-controller';
 
 import { APIProvider } from '@/api';
 import { hydrateAuth, loadSelectedTheme } from '@/lib';
+import { useAuth } from '@/lib/auth';
 import { useThemeConfig } from '@/lib/use-theme-config';
+
 import LoadingScreen from './loading';
 
 export { ErrorBoundary } from 'expo-router';
@@ -31,8 +33,8 @@ SplashScreen.setOptions({
   duration: 500,
   fade: true,
 });
-
 export default function RootLayout() {
+  const { token } = useAuth();
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
@@ -53,12 +55,26 @@ export default function RootLayout() {
   
   return (
     <Providers>
-      <Stack>
-        <Stack.Screen name="(app)" options={{ headerShown: false }} />
-        <Stack.Screen name="onboarding" options={{ headerShown: false }} />
-        <Stack.Screen name="login" options={{ headerShown: false }} />
-      </Stack>
+      {token ? <AuthenticatedStack /> : <UnauthenticatedStack />}
     </Providers>
+  );
+}
+
+function AuthenticatedStack() {
+  return (
+    <Stack>
+      <Stack.Screen name="(app)" options={{ headerShown: false }} />
+    </Stack>
+  );
+}
+
+function UnauthenticatedStack() {
+  return (
+    <Stack>
+      <Stack.Screen name="onboarding" options={{ headerShown: false }} />
+      <Stack.Screen name="signup" options={{ headerShown: false }} />
+      <Stack.Screen name="login" options={{ headerShown: false }} />
+    </Stack>
   );
 }
 

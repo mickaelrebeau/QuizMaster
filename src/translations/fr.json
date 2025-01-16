@@ -1,6 +1,26 @@
 {
+  "login": {
+    "description": "Bienvenue! 👋 C'est une démo de page de connexion! Utilisez n'importe quelle email et mot de passe pour vous connecter.",
+    "email": "Email",
+    "login": "Se connecter",
+    "message-fail": "Échec de la connexion! Veuillez réessayer.",
+    "name": "Nom",
+    "password": "Mot de passe",
+    "title": "Connexion"
+  },
   "onboarding": {
-    "message": "Bienvenue sur Obytes Boilerplate"
+    "already": "Vous avez déjà un compte?",
+    "features": {
+      "four": "Suivez votre progression",
+      "one": "Quiz personnalisés",
+      "three": "D'innombrables sujets à explorer",
+      "two": "Apprenez en vous amusant"
+    },
+    "join": "Rejoignez la communauté",
+    "login": "Se connecter",
+    "message": "Testez vos connaissances sur n'importe quel sujet et défiez-vous avec des questions alimentées par l'IA.",
+    "powered": "Alimentée par IA | © 2025 QuizMaster",
+    "title": "QuizMaster AI"
   },
   "settings": {
     "about": "A propos",
@@ -29,6 +49,17 @@
     "title": "Paramètres",
     "version": "Version",
     "website": "Site web"
+  },
+  "signup": {
+    "description": "Créez votre compte pour accéder à la plateforme de quiz.",
+    "email": "Email",
+    "message-fail": "Inscription échouée! Veuillez réessayer.",
+    "message-success": "Inscription réussie! Veuillez vérifier votre email pour vérifier votre compte.",
+    "name": "Nom",
+    "password": "Mot de passe",
+    "passwordConfirm": "Confirmer le mot de passe",
+    "signup": "S'inscrire",
+    "title": "Inscription"
   },
   "welcome": "Bienvenue sur Obytes Boilerplate"
 }

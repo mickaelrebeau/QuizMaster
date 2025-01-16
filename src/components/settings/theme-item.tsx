@@ -11,12 +11,21 @@ export const ThemeItem = () => {
   const { selectedTheme, setSelectedTheme } = useSelectedTheme();
   const modal = useModal();
 
+  const reloadApp = React.useCallback(() => {
+    if (typeof window !== 'undefined') {
+      window.location.reload(); 
+    } else {
+      console.warn('Reload logic not implemented for native apps.');
+    }
+  }, []);
+
   const onSelect = React.useCallback(
     (option: OptionType) => {
       setSelectedTheme(option.value as ColorSchemeType);
       modal.dismiss();
+      reloadApp();
     },
-    [setSelectedTheme, modal],
+    [setSelectedTheme, modal, reloadApp],
   );
 
   const themes = React.useMemo(

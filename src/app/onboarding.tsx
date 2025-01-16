@@ -1,7 +1,8 @@
+/* eslint-disable max-lines-per-function */
 import { useRouter } from 'expo-router';
+import LottieView from 'lottie-react-native';
 import React from 'react';
 
-import { Cover } from '@/components/cover';
 import {
   Button,
   FocusAwareStatusBar,
@@ -9,45 +10,75 @@ import {
   Text,
   View,
 } from '@/components/ui';
+import { translate } from '@/lib';
 import { useIsFirstTime } from '@/lib/hooks';
+
 export default function Onboarding() {
   const [_, setIsFirstTime] = useIsFirstTime();
   const router = useRouter();
-  return (
-    <View className="flex h-full items-center  justify-center">
-      <FocusAwareStatusBar />
-      <View className="w-full flex-1">
-        <Cover />
-      </View>
-      <View className="justify-end ">
-        <Text className="my-3 text-center text-5xl font-bold">
-          Obytes Starter
-        </Text>
-        <Text className="mb-2 text-center text-lg text-gray-600">
-          The right way to build your mobile app
-        </Text>
+  const animation = React.useRef<LottieView>(null);
 
-        <Text className="my-1 pt-6 text-left text-lg">
-          🚀 Production-ready{' '}
+  return (
+    <View className="flex h-full items-center justify-center py-8">
+      <FocusAwareStatusBar />
+      <View className="px-4">
+        <Text className="mb-3 text-center text-4xl font-bold text-violet-600">
+          {translate('onboarding.title')}
+        </Text>
+        <Text className="mb-5 text-center text-lg text-gray-600">
+          {translate('onboarding.message')}
+        </Text>
+      </View>
+      <View className="w-full flex-1">
+        <LottieView
+          autoPlay
+          loop
+          ref={animation}
+          style={{
+            width: 200,
+            height: 200,
+            backgroundColor: '#eee',
+          }}
+          // Find more Lottie files at https://lottiefiles.com/featured
+          source={require('assets/quizz.json')}
+        />
+      </View>
+      <View className="px-4">
+        <Text className="my-1 text-left text-lg">
+          🌟 {translate('onboarding.features.one')}
         </Text>
         <Text className="my-1 text-left text-lg">
-          🥷 Developer experience + Productivity
+          🧠 {translate('onboarding.features.two')}
         </Text>
         <Text className="my-1 text-left text-lg">
-          🧩 Minimal code and dependencies
+          🚀 {translate('onboarding.features.three')}
         </Text>
         <Text className="my-1 text-left text-lg">
-          💪 well maintained third-party libraries
+          📊 {translate('onboarding.features.four')}
         </Text>
       </View>
       <SafeAreaView className="mt-6">
         <Button
-          label="Let's Get Started "
+          label={translate('onboarding.join')}
+          onPress={() => {
+            setIsFirstTime(false);
+            router.replace('/signup');
+          }}
+        />
+        <View className="my-6 w-full border-b border-slate-300" />
+        <Text>{translate('onboarding.already')} </Text>
+        <Button
+          label={translate('onboarding.login')}
           onPress={() => {
             setIsFirstTime(false);
             router.replace('/login');
           }}
         />
+      </SafeAreaView>
+      <SafeAreaView className="mt-8 w-full">
+        <Text className="text-center text-sm text-gray-400">
+          {translate('onboarding.powered')}
+        </Text>
       </SafeAreaView>
     </View>
   );
