@@ -24,3 +24,10 @@ export type userQuizType = {
   score: number | null;
   userAnswers: UserAnswerType[];
 };
+
+export type QuizType = {
+  topic: string | number;
+  difficulty: string | number;
+  language: string | undefined;
+  numberOfQuestions: string | number;
+};
