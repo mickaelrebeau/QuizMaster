@@ -5,7 +5,7 @@ import { showMessage } from 'react-native-flash-message';
 import type { SignupFormProps } from '@/components/signup-form';
 import { SignupForm } from '@/components/signup-form';
 import { FocusAwareStatusBar } from '@/components/ui';
-import { useAuth } from '@/lib';
+import { translate, useAuth } from '@/lib';
 
 export default function Signup() {
   const router = useRouter();
@@ -16,13 +16,13 @@ export default function Signup() {
     try {
       await signUp(data);
       showMessage({
-        message: 'Sign-up successful! Please check your email to verify your account.',
+        message: translate('signup.message-success'),
         type: 'success',
       });
       router.push('/login');
     } catch (error) { 
       showMessage({
-        message: 'Sign-up failed!',
+        message: translate('signup.message-fail'),
         type: 'danger',
       });
     } 
