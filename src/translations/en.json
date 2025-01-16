@@ -3,11 +3,13 @@
     "description": "Welcome! 👋 This is a demo login screen! Feel free to use any email and password to sign in and try it out.",
     "email": "Email",
     "login": "Login",
+    "message-fail": "Login failed! Please try again.",
     "name": "Name",
     "password": "Password",
     "title": "Sign In"
   },
   "onboarding": {
+    "already": "Already have an account?",
     "features": {
       "four": "Track your progress",
       "one": "Personalized quizzes",
@@ -15,7 +17,9 @@
       "two": "Learn while having fun"
     },
     "join": "Join the community",
+    "login": "Login",
     "message": "Test your knowledge on any topic and challenge yourself with AI-powered questions.",
+    "powered": "Powered by AI | © 2025 QuizMaster",
     "title": "QuizMaster AI"
   },
   "settings": {
@@ -49,6 +53,8 @@
   "signup": {
     "description": "Create your account to access the quiz platform.",
     "email": "Email",
+    "message-fail": "Sign-up failed! Please try again.",
+    "message-success": "Sign-up successful! Please check your email to verify your account.",
     "name": "Name",
     "password": "Password",
     "passwordConfirm": "Confirm Password",
