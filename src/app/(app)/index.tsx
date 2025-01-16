@@ -17,7 +17,7 @@ export default function Home() {
     <View className="flex h-full items-center justify-between py-8">
       <FocusAwareStatusBar />
       <View className="mt-12 w-full px-6">
-        <Text className="text-center text-5xl font-extrabold text-violet-600">
+        <Text className="text-center text-5xl font-bold text-violet-600">
           QuizMaster AI
         </Text>
         <Text className="mt-4 text-center text-lg text-gray-500">
