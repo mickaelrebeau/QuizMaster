@@ -2,11 +2,13 @@
 /* eslint-disable max-lines-per-function */
 import { Ionicons } from '@expo/vector-icons';
 import { Stack } from 'expo-router';
+import { useColorScheme } from 'nativewind';
 import React, { useState } from 'react';
 import { FlatList, Modal, Pressable } from 'react-native';
 
 import { getUserQuizzes } from '@/api/quiz';
-import { FocusAwareStatusBar, Text, View } from '@/components/ui';
+import { colors, FocusAwareStatusBar, Text, View } from '@/components/ui';
+import { ArrowRight } from '@/components/ui/icons';
 import { type userQuizType } from '@/types';
 
 
@@ -14,6 +16,9 @@ export default function History() {
   const [history, setHistory] = useState<userQuizType[] | null>(null);
   const [selectedQuiz, setSelectedQuiz] = useState<userQuizType | null>(null);
   const [isModalVisible, setModalVisible] = useState(false);
+  const { colorScheme } = useColorScheme();
+  const iconColor =
+    colorScheme === 'dark' ? colors.neutral[400] : colors.neutral[500];
 
   React.useEffect(() => {
     const getHistory = async () => {
@@ -47,8 +52,8 @@ export default function History() {
         Score: {item.score}/{item.userAnswers.length}
       </Text>
       <Pressable onPress={() => openModal(item)}>
-        <Text className="text-right text-lg text-gray-500">
-          View questions {'->'}
+        <Text className="flex items-center justify-end gap-3 text-lg text-gray-500">
+          View questions <ArrowRight color={iconColor} />
         </Text>
       </Pressable>
     </View>
@@ -60,7 +65,7 @@ export default function History() {
       <FocusAwareStatusBar />
 
       <View className="w-full px-6 py-8">
-        <Text className="text-center text-4xl font-extrabold text-violet-600">
+        <Text className="text-center text-4xl font-bold text-violet-600">
           Quiz History
         </Text>
       </View>
@@ -83,47 +88,53 @@ export default function History() {
         animationType="slide"
         onRequestClose={closeModal}
       >
-        <View className="flex-1 justify-center bg-white px-6 dark:bg-neutral-900">
-          <View className="rounded-lgp-6">
-            <View className="mb-8 flex-row items-center justify-between">
-              <Text className="text-xl font-bold text-violet-600">
-                {selectedQuiz && selectedQuiz.topic} Questions
-              </Text>
-              <Pressable onPress={closeModal}>
-                <Ionicons name="close" size={24} color="gray" />
-              </Pressable>
-            </View>
-            <View className="mb-4">
-              <Text className="text-gray-700">
-                Score: {selectedQuiz?.score}/{selectedQuiz?.userAnswers.length}
-              </Text>
-            </View>
-
-            <FlatList
-              data={selectedQuiz?.userAnswers}
-              keyExtractor={(_, index) => index.toString()}
-              renderItem={({ item, index }) => (
-                <View className="mb-4 rounded border border-slate-300 p-4 shadow">
-                  <Text className="text-gray-700">
-                    {index + 1}. {item.question}
-                  </Text>
-                  <Text className="mt-1 text-gray-500">
-                    Correct Answer: {item.correctAnswer}
-                  </Text>
-                  <Text className="mt-1 text-gray-500">
-                    Your Answer: {item.userAnswer}
-                  </Text>
-                  <Text
-                    className={`mt-2 text-right ${
-                      item.userAnswer ? 'text-green-600' : 'text-red-600'
-                    }`}
-                  >
-                    {item.userAnswer ? 'Correct' : 'Incorrect'}
-                  </Text>
-                </View>
-              )}
-            />
+        <View className="h-full flex-1 justify-center bg-white px-6 py-8 dark:bg-neutral-900">
+          <View className="mb-8 flex-row items-center justify-between">
+            <Text className="text-xl font-bold text-violet-600">
+              {selectedQuiz && selectedQuiz.topic} Questions
+            </Text>
+            <Pressable onPress={closeModal}>
+              <Ionicons name="close" size={24} color="gray" />
+            </Pressable>
           </View>
+          <View className="mb-4">
+            <Text className="text-gray-700">
+              Score: {selectedQuiz?.score}/{selectedQuiz?.userAnswers.length}
+            </Text>
+          </View>
+
+          <FlatList
+            data={selectedQuiz?.userAnswers}
+            keyExtractor={(_, index) => index.toString()}
+            contentContainerStyle={{
+              paddingHorizontal: 8,
+              paddingBottom: 16,
+            }}
+            renderItem={({ item, index }) => (
+              <View className="mb-4 rounded border border-slate-300 p-4 shadow">
+                <Text className="font-semibold text-gray-700">
+                  {index + 1}. {item.question}
+                </Text>
+                <Text className="mt-1 text-gray-500">
+                  Correct Answer: {item.correctAnswer}
+                </Text>
+                <Text className="mt-1 text-gray-500">
+                  Your Answer: {item.userAnswer}
+                </Text>
+                <Text
+                  className={`mt-2 text-right ${
+                    item.userAnswer === item.correctAnswer
+                      ? 'text-green-600'
+                      : 'text-red-600'
+                  }`}
+                >
+                  {item.userAnswer === item.correctAnswer
+                    ? 'Correct'
+                    : 'Incorrect'}
+                </Text>
+              </View>
+            )}
+          />
         </View>
       </Modal>
     </View>
