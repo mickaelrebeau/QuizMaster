@@ -6,7 +6,7 @@ import { FlatList, Modal } from 'react-native';
 
 import { saveUserQuiz } from '@/api/quiz';
 import { Button, Radio, Text, View } from '@/components/ui';
-import { type QuestionItem, type QuizDatatype,type UserAnswerType,type userQuizType } from '@/types';
+import { type QuestionItem, type QuizDatatype,type userQuizType } from '@/types';
 
 
 export default function QuizPage() {
@@ -19,7 +19,6 @@ export default function QuizPage() {
   const [score, setScore] = React.useState<number | null>(null);
   const [quizData, setQuizData] = React.useState<QuizDatatype | null>(null);
   const [questions, setQuestions] = React.useState<QuestionItem[] | null>(null);
-  const [userAnswers, setUserAnswers] = React.useState<UserAnswerType[]>([]);
 
   const shuffleArray = (array: string[]) => {
     return array
@@ -64,7 +63,7 @@ export default function QuizPage() {
     item: QuestionItem;
   }) => (
     <View className="mt-4 rounded-lg bg-white px-2 py-4 shadow-md dark:bg-neutral-900">
-      <Text className="text-lg font-bold">{item.question}</Text>
+      <Text className="text-lg font-semibold">{item.question}</Text>
       <View className="mt-4">
         {item.shuffledAnswers?.map((answer) => (
           <Radio.Root
@@ -105,7 +104,7 @@ export default function QuizPage() {
     </View>
   );
 
-  const calculateScore = () => {
+  const handleSubmit = async () => {
     const correctAnswers = quizData?.questions.reduce(
       (count: number, question: QuestionItem) => {
         if (selectedAnswers[question.question] === question.correctAnswer) {
@@ -115,27 +114,29 @@ export default function QuizPage() {
       },
       0,
     );
-    setScore(correctAnswers ?? 0);
 
-    setUserAnswers(
+    const calculatedUserAnswers =
       quizData?.questions.map((question) => ({
         question: question.question,
         correctAnswer: question.correctAnswer,
         userAnswer: selectedAnswers[question.question] || '',
-      })) || [],
-    );
-  };
+      })) || [];
 
-  const handleSubmit = async () => {
-    calculateScore();
+    const calculatedScore = correctAnswers ?? 0;
+
+    const userQuizData: userQuizType = {
+      topic: quizData?.topic,
+      score: calculatedScore,
+      userAnswers: calculatedUserAnswers,
+    };
+
+    console.log('User Quiz Data:', userQuizData);
+
+    setScore(calculatedScore);
     setShowResults(true);
+
     try {
-      const userQuizData: userQuizType = {
-        topic: quizData?.topic,
-        score: score,
-        userAnswers,
-      };
-      
+      console.log('Saving quiz:', userQuizData);
       await saveUserQuiz(userQuizData);
     } catch (error) {
       console.error('Error saving quiz:', error);

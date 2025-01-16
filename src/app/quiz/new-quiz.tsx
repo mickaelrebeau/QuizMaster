@@ -16,6 +16,7 @@ import {
   useModal,
   View,
 } from '@/components/ui';
+import { getLanguage } from '@/lib';
 import { type QuizDatatype } from '@/types';
 
 export default function NewQuiz() {
@@ -37,6 +38,7 @@ export default function NewQuiz() {
     label: string;
     value: string | number;
   }>({ label: 'Easy', value: 'easy' });
+  const language = getLanguage();
 
   const topics = React.useMemo(
     () => [
@@ -115,6 +117,7 @@ export default function NewQuiz() {
     const data = {
       topic: topic,
       difficulty: difficulty.value,
+      language: language,
       numberOfQuestions: questionsNumber.value,
     };
 
