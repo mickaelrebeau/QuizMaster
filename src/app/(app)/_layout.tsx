@@ -24,7 +24,7 @@ export default function TabLayout() {
   }, [hideSplash, status]);
 
   if (isFirstTime) {
-    return <Redirect href="/onboarding" />;
+    return <Redirect href="/" />;
   }
   if (status === 'signOut') {
     return <Redirect href="/login" />;
@@ -38,7 +38,7 @@ export default function TabLayout() {
       }}
     >
       <Tabs.Screen
-        name="index"
+        name="home"
         options={{
           title: 'Home',
           headerShown: false,
