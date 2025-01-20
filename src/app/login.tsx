@@ -15,7 +15,7 @@ export default function Login() {
     console.log(data);
     try {
       await signIn(data);
-      router.push('/');
+      router.push('/home');
     } catch (error) {
       showMessage({
         message: translate('login.message-fail'),
