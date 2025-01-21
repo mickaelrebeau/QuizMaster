@@ -29,6 +29,7 @@
         "image": "latest"
       },
       "android": {
+        "resourceClass": "large",
         "buildType": "apk",
         "image": "latest"
       },
