@@ -49,22 +49,16 @@ export default function QuizPage() {
   }, [data]);
 
   const handleAnswerSelect = (question: string, answer: string) => {
-    console.log('Question:', question);
-    console.log('Selected answer:', answer);
     setSelectedAnswers((prev) => ({
       ...prev,
       [question]: answer,
     }));
   };
 
-  const renderItem = ({
-    item,
-  }: {
-    item: QuestionItem;
-  }) => (
-    <View className="mt-4 rounded-lg bg-white px-2 py-4 shadow-md dark:bg-neutral-900">
+  const renderItem = ({ item }: { item: QuestionItem }) => (
+    <View className="mb-4 rounded border border-slate-300 p-4 shadow dark:bg-neutral-900">
       <Text className="text-lg font-semibold">{item.question}</Text>
-      <View className="mt-4">
+      <View className="mt-4 flex gap-6">
         {item.shuffledAnswers?.map((answer) => (
           <Radio.Root
             key={answer}
@@ -82,7 +76,7 @@ export default function QuizPage() {
   );
 
   const renderAnswerItem = ({ item }: { item: QuestionItem }) => (
-    <View className="mt-4">
+    <View className="mb-4 flex gap-4 rounded border border-slate-300 p-4 shadow">
       <Text className="font-bold">{item.question}</Text>
       <Text>
         Your Answer:{' '}
@@ -179,19 +173,20 @@ export default function QuizPage() {
         animationType="slide"
         onRequestClose={closeModal}
       >
-        <View className="w-100 flex-1 justify-center bg-white p-6 dark:bg-neutral-900">
+        <View className="w-100 h-full flex-1 justify-center bg-white p-6 dark:bg-neutral-900">
           <Text className="text-center text-2xl font-bold text-violet-600">
             Quiz Results
           </Text>
           <Text className="mt-4 text-lg">
             Score: {score} / {questions?.length || 0}
           </Text>
+
           <FlatList
             data={questions}
-            keyExtractor={(item: { question: string }) => item.question}
+            keyExtractor={(_, index) => index.toString()}
             renderItem={renderAnswerItem}
             contentContainerStyle={{
-              paddingHorizontal: 16,
+              paddingHorizontal: 8,
               paddingBottom: 16,
             }}
             ListEmptyComponent={

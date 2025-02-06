@@ -12,7 +12,6 @@ export default function Login() {
   const signIn = useAuth.use.signIn();
 
   const onSubmit: LoginFormProps['onSubmit'] = async (data) => {
-    console.log(data);
     try {
       await signIn(data);
       router.push('/home');

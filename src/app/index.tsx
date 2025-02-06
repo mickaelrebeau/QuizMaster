@@ -1,6 +1,5 @@
 /* eslint-disable max-lines-per-function */
 import { useRouter } from 'expo-router';
-import LottieView from 'lottie-react-native';
 import React from 'react';
 
 import {
@@ -10,13 +9,13 @@ import {
   Text,
   View,
 } from '@/components/ui';
+import QuizIllustration from '@/components/ui/icons/quiz2';
 import { translate } from '@/lib';
 import { useIsFirstTime } from '@/lib/hooks';
 
 export default function Onboarding() {
   const [_, setIsFirstTime] = useIsFirstTime();
   const router = useRouter();
-  const animation = React.useRef<LottieView>(null);
 
   return (
     <View className="flex h-full items-center justify-center py-8">
@@ -29,21 +28,10 @@ export default function Onboarding() {
           {translate('onboarding.message')}
         </Text>
       </View>
-      <View className="w-full flex-1">
-        <LottieView
-          autoPlay
-          loop
-          ref={animation}
-          style={{
-            width: 200,
-            height: 200,
-            backgroundColor: '#eee',
-          }}
-          // Find more Lottie files at https://lottiefiles.com/featured
-          source={require('assets/quizz.json')}
-        />
-      </View>
-      <View className="px-4">
+
+      <QuizIllustration />
+
+      <View className="mt-4 px-4">
         <Text className="my-1 text-left text-lg">
           🌟 {translate('onboarding.features.one')}
         </Text>

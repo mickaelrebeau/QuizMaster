@@ -1,16 +1,14 @@
-/* eslint-disable tailwindcss/migration-from-tailwind-2 */
 /* eslint-disable max-lines-per-function */
 import { Ionicons } from '@expo/vector-icons';
 import { Stack } from 'expo-router';
 import { useColorScheme } from 'nativewind';
-import React, { useState } from 'react';
+import React, { useEffect,useState } from 'react';
 import { FlatList, Modal, Pressable } from 'react-native';
 
 import { getUserQuizzes } from '@/api/quiz';
 import { colors, FocusAwareStatusBar, Text, View } from '@/components/ui';
 import { ArrowRight } from '@/components/ui/icons';
 import { type userQuizType } from '@/types';
-
 
 export default function History() {
   const [history, setHistory] = useState<userQuizType[] | null>(null);
@@ -20,7 +18,7 @@ export default function History() {
   const iconColor =
     colorScheme === 'dark' ? colors.neutral[400] : colors.neutral[500];
 
-  React.useEffect(() => {
+  useEffect(() => {
     const getHistory = async () => {
       try {
         const history = await getUserQuizzes();
@@ -45,14 +43,37 @@ export default function History() {
     setSelectedQuiz(null);
   };
 
-  const renderItem = ({ item }: { item: userQuizType }) => (
-    <View className="mb-4 rounded-lg p-4 shadow-md dark:bg-neutral-900">
-      <Text className="text-lg font-bold text-violet-600">{item.topic}</Text>
+  const getUniqueTopicName = (
+    topic: string | undefined,
+    index: number,
+    history: userQuizType[],
+  ): string => {
+    const safeTopic = topic || 'Untitled';
+    let count = 0;
+    for (let i = 0; i < index; i++) {
+      if (history[i].topic === safeTopic) {
+        count++;
+      }
+    }
+    return count === 0 ? safeTopic : `${safeTopic}-${count + 1}`;
+  };
+
+  const renderItem = ({
+    item,
+    index,
+  }: {
+    item: userQuizType;
+    index: number;
+  }) => (
+    <View className="mb-4 flex gap-4 rounded border border-slate-300 p-4 shadow dark:bg-neutral-900">
+      <Text className="text-lg font-bold text-violet-600">
+        {getUniqueTopicName(item.topic, index, history || [])}
+      </Text>
       <Text className="text-gray-700">
         Score: {item.score}/{item.userAnswers.length}
       </Text>
       <Pressable onPress={() => openModal(item)}>
-        <Text className="flex items-center justify-end gap-3 text-lg text-gray-500">
+        <Text className="flex items-center justify-end gap-4 text-lg text-gray-500">
           View questions <ArrowRight color={iconColor} />
         </Text>
       </Pressable>
@@ -72,7 +93,9 @@ export default function History() {
 
       <FlatList
         data={history}
-        keyExtractor={(item: userQuizType) => item.topic || ''}
+        keyExtractor={(item: userQuizType, index: number) =>
+          `${item.topic}-${index}`
+        }
         renderItem={renderItem}
         contentContainerStyle={{ paddingHorizontal: 16, paddingBottom: 16 }}
         ListEmptyComponent={

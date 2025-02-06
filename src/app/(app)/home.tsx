@@ -1,17 +1,15 @@
 import { useRouter } from 'expo-router';
-import LottieView from 'lottie-react-native';
 import React from 'react';
 
 import {
   Button,
   FocusAwareStatusBar,
   Text,
-  View,
-} from '@/components/ui';
+  View } from '@/components/ui';
+import Quiz from '@/components/ui/icons/quiz';
 
 export default function Home() {
   const router = useRouter();
-  const animation = React.useRef<LottieView>(null);
 
   return (
     <View className="flex h-full items-center justify-between py-8">
@@ -25,18 +23,7 @@ export default function Home() {
         </Text>
       </View>
 
-      <LottieView
-        autoPlay
-        loop
-        ref={animation}
-        style={{
-          width: 200,
-          height: 200,
-          backgroundColor: '#eee',
-        }}
-        // Find more Lottie files at https://lottiefiles.com/featured
-        source={require('assets/quizz.json')}
-      />
+      <Quiz />
 
       <View className="w-full px-6">
         <Button
