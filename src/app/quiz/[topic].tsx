@@ -139,7 +139,7 @@ export default function QuizPage() {
 
   const closeModal = () => {
     setShowResults(false);
-    router.push('/home');
+    router.push('/');
   };
 
   return (

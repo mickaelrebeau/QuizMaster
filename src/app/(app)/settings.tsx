@@ -2,6 +2,7 @@
 import { Env } from '@env';
 import { useRouter } from 'expo-router';
 import { useColorScheme } from 'nativewind';
+import React from 'react';
 
 import { Item } from '@/components/settings/item';
 import { ItemsContainer } from '@/components/settings/items-container';

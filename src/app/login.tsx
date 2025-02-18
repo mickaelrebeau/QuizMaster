@@ -14,7 +14,7 @@ export default function Login() {
   const onSubmit: LoginFormProps['onSubmit'] = async (data) => {
     try {
       await signIn(data);
-      router.push('/home');
+      router.push('/');
     } catch (error) {
       showMessage({
         message: translate('login.message-fail'),
