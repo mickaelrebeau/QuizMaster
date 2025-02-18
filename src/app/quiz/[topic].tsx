@@ -1,8 +1,8 @@
-/* eslint-disable tailwindcss/migration-from-tailwind-2 */
 /* eslint-disable max-lines-per-function */
+import { Ionicons } from '@expo/vector-icons';
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import React from 'react';
-import { FlatList, Modal } from 'react-native';
+import { FlatList, Modal, Pressable } from 'react-native';
 
 import { saveUserQuiz } from '@/api/quiz';
 import { Button, Radio, Text, View } from '@/components/ui';
@@ -174,9 +174,14 @@ export default function QuizPage() {
         onRequestClose={closeModal}
       >
         <View className="w-100 h-full flex-1 justify-center bg-white p-6 dark:bg-neutral-900">
-          <Text className="text-center text-2xl font-bold text-violet-600">
-            Quiz Results
-          </Text>
+          <View className="mb-8 flex-row items-center justify-between">
+            <Text className="text-center text-2xl font-bold text-violet-600">
+              Quiz Results
+            </Text>
+            <Pressable onPress={closeModal}>
+              <Ionicons name="close" size={24} color="gray" />
+            </Pressable>
+          </View>
           <Text className="mt-4 text-lg">
             Score: {score} / {questions?.length || 0}
           </Text>
