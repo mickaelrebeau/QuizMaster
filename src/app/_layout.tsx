@@ -44,7 +44,7 @@ export default function RootLayout() {
       setIsReady(true);
 
       if (status === 'signIn' || token) {
-        router.replace('/home');
+        router.replace('/');
       }
     };
 
@@ -77,7 +77,7 @@ function AuthenticatedStack() {
 function UnauthenticatedStack() {
   return (
     <Stack>
-      <Stack.Screen name="index" options={{ headerShown: false }} />
+      <Stack.Screen name="onboarding" options={{ headerShown: false }} />
       <Stack.Screen name="signup" options={{ headerShown: false }} />
       <Stack.Screen name="login" options={{ headerShown: false }} />
     </Stack>
