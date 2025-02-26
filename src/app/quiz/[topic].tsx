@@ -6,8 +6,11 @@ import { FlatList, Modal, Pressable } from 'react-native';
 
 import { saveUserQuiz } from '@/api/quiz';
 import { Button, Radio, Text, View } from '@/components/ui';
-import { type QuestionItem, type QuizDatatype,type userQuizType } from '@/types';
-
+import {
+  type QuestionItem,
+  type QuizDatatype,
+  type userQuizType,
+} from '@/types';
 
 export default function QuizPage() {
   const router = useRouter();
@@ -40,7 +43,7 @@ export default function QuizPage() {
               ...question.incorrectAnswers,
               question.correctAnswer,
             ]),
-          })),
+          }))
         );
       }
     } catch (error) {
@@ -106,7 +109,7 @@ export default function QuizPage() {
         }
         return count;
       },
-      0,
+      0
     );
 
     const calculatedUserAnswers =
