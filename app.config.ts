@@ -40,6 +40,9 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   ios: {
     supportsTablet: true,
     bundleIdentifier: Env.BUNDLE_ID,
+    config: {
+      usesNonExemptEncryption: false,
+    },
   },
   experiments: {
     typedRoutes: true,
@@ -77,7 +80,6 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   ],
   extra: {
     ...ClientEnv,
-    assetBundlePatterns: ['**/*'],
     eas: {
       projectId: Env.EAS_PROJECT_ID,
     },
