@@ -9,7 +9,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        montserrat: ['Montserrat'],
+        inter: ['Inter'],
       },
       colors,
     },
