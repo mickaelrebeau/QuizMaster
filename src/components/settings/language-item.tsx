@@ -16,7 +16,7 @@ export const LanguageItem = () => {
       setLanguage(option.value as Language);
       modal.dismiss();
     },
-    [setLanguage, modal],
+    [setLanguage, modal]
   );
 
   const langs = React.useMemo(
@@ -25,12 +25,12 @@ export const LanguageItem = () => {
       { label: translate('settings.arabic'), value: 'ar' },
       { label: translate('settings.french'), value: 'fr' },
     ],
-    [],
+    []
   );
 
   const selectedLanguage = React.useMemo(
     () => langs.find((lang) => lang.value === language),
-    [language, langs],
+    [language, langs]
   );
 
   return (

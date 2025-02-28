@@ -11,21 +11,12 @@ export const ThemeItem = () => {
   const { selectedTheme, setSelectedTheme } = useSelectedTheme();
   const modal = useModal();
 
-  const reloadApp = React.useCallback(() => {
-    if (typeof window !== 'undefined') {
-      window.location.reload(); 
-    } else {
-      console.warn('Reload logic not implemented for native apps.');
-    }
-  }, []);
-
   const onSelect = React.useCallback(
     (option: OptionType) => {
       setSelectedTheme(option.value as ColorSchemeType);
       modal.dismiss();
-      reloadApp();
     },
-    [setSelectedTheme, modal, reloadApp],
+    [setSelectedTheme, modal]
   );
 
   const themes = React.useMemo(
@@ -34,12 +25,12 @@ export const ThemeItem = () => {
       { label: `${translate('settings.theme.light')} 🌞`, value: 'light' },
       { label: `${translate('settings.theme.system')} ⚙️`, value: 'system' },
     ],
-    [],
+    []
   );
 
   const theme = React.useMemo(
     () => themes.find((t) => t.value === selectedTheme),
-    [selectedTheme, themes],
+    [selectedTheme, themes]
   );
 
   return (

@@ -66,7 +66,7 @@ export const LoginForm = ({ onSubmit = () => {} }: LoginFormProps) => {
           placeholder="***"
           secureTextEntry={true}
         />
-        
+
         <Button
           className="mt-6 rounded-xl"
           testID="login-button"
