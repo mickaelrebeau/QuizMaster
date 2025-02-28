@@ -4,7 +4,7 @@
   "private": true,
   "main": "expo-router/entry",
   "scripts": {
-    "start": "cross-env EXPO_NO_DOTENV=1 expo start --port 8090",
+    "start": "cross-env EXPO_NO_DOTENV=1 expo start",
     "prebuild": "cross-env EXPO_NO_DOTENV=1 pnpm expo prebuild",
     "android": "cross-env EXPO_NO_DOTENV=1 expo run:android",
     "ios": "cross-env EXPO_NO_DOTENV=1 expo run:ios",
@@ -14,7 +14,6 @@
     "preinstall": "npx only-allow pnpm",
     "start:staging": "cross-env APP_ENV=staging pnpm run start",
     "prebuild:staging": "cross-env APP_ENV=staging pnpm run prebuild",
-    "start:development": "cross-env APP_ENV=development pnpm run start",
     "prebuild:development": "cross-env APP_ENV=development pnpm run prebuild",
     "android:staging": "cross-env APP_ENV=staging pnpm run android",
     "ios:staging": "cross-env APP_ENV=staging pnpm run ios",
@@ -136,7 +135,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mickaelrebeau/QuizMaster.git"
+    "url": "git+https://github.com/obytes/react-native-template-obytes.git"
   },
   "packageManager": "pnpm@9.12.3",
   "expo": {

@@ -84,7 +84,4 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       projectId: Env.EAS_PROJECT_ID,
     },
   },
-  runtimeVersion: {
-    policy: 'appVersion',
-  },
 });

@@ -19,17 +19,11 @@ yarn-error.log
 
 expo-env.d.ts
 # @end expo-cli
-
 .env
 .env.development
 .env.production
 .env.staging
-
 /android
-cli/clone-repo.js
-cli/index.js
-cli/package.json
-cli/pnpm-lock.yaml
-cli/README.md
-cli/setup-project.js
-cli/utils.js
+/cli
+/docs
+/ios
