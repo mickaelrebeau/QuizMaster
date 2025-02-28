@@ -1,3 +1,4 @@
+/* eslint-disable max-lines-per-function */
 /* eslint-disable react/react-in-jsx-scope */
 import { Env } from '@env';
 import { useRouter } from 'expo-router';
@@ -57,7 +58,9 @@ export default function Settings() {
             <Item
               text="settings.support"
               icon={<Support color={iconColor} />}
-              onPress={() => { router.push('https://streamlabs.com/mike_dreeman/tip'); }}
+              onPress={() => {
+                router.push('https://streamlabs.com/mike_dreeman/tip');
+              }}
             />
           </ItemsContainer>
 
@@ -67,7 +70,9 @@ export default function Settings() {
             <Item
               text="settings.github"
               icon={<Github color={iconColor} />}
-              onPress={() => { router.push('https://github.com/mickaelrebeau/QuizMaster'); }}
+              onPress={() => {
+                router.push('https://github.com/mickaelrebeau/QuizMaster');
+              }}
             />
             <Item
               text="settings.website"

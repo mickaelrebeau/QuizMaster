@@ -1,8 +1,7 @@
 import { Redirect, SplashScreen, Tabs } from 'expo-router';
 import React, { useCallback, useEffect } from 'react';
 
-import { Settings as SettingsIcon } from '@/components/ui/icons';
-import { Home } from '@/components/ui/icons/home';
+import { Home, Settings as SettingsIcon } from '@/components/ui/icons';
 import { useAuth, useIsFirstTime } from '@/lib';
 import { storage } from '@/lib/storage';
 

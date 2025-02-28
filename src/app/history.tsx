@@ -2,7 +2,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Stack } from 'expo-router';
 import { useColorScheme } from 'nativewind';
-import React, { useEffect,useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FlatList, Modal, Pressable } from 'react-native';
 
 import { getUserQuizzes } from '@/api/quiz';
@@ -46,7 +46,7 @@ export default function History() {
   const getUniqueTopicName = (
     topic: string | undefined,
     index: number,
-    history: userQuizType[],
+    history: userQuizType[]
   ): string => {
     const safeTopic = topic || 'Untitled';
     let count = 0;

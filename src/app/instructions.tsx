@@ -1,12 +1,7 @@
 import { Stack } from 'expo-router';
 import React from 'react';
 
-import {
-  FocusAwareStatusBar,
-  ScrollView,
-  Text,
-  View,
-} from '@/components/ui';
+import { FocusAwareStatusBar, ScrollView, Text, View } from '@/components/ui';
 
 export default function Instructions() {
   return (

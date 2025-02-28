@@ -25,7 +25,10 @@ export const removeToken = async (): Promise<void> => {
   await AsyncStorage.removeItem('supabase.auth.token');
 };
 export const signUpWithEmail = async (email: string, password: string) => {
-  const { data: { user }, error } = await supabase.auth.signUp({
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.signUp({
     email,
     password,
   });
@@ -35,7 +38,10 @@ export const signUpWithEmail = async (email: string, password: string) => {
   return user;
 };
 export const signInWithEmail = async (email: string, password: string) => {
-  const { data: { user, session }, error } = await supabase.auth.signInWithPassword({
+  const {
+    data: { user, session },
+    error,
+  } = await supabase.auth.signInWithPassword({
     email,
     password,
   });

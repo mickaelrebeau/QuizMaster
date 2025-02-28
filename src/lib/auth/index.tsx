@@ -1,7 +1,15 @@
 import { create } from 'zustand';
 
 import { createSelectors } from '../utils';
-import { type AuthType, getToken, removeToken, setToken, signInWithEmail, signUpWithEmail, type TokenType } from './utils';
+import {
+  type AuthType,
+  getToken,
+  removeToken,
+  setToken,
+  signInWithEmail,
+  signUpWithEmail,
+  type TokenType,
+} from './utils';
 
 interface AuthState {
   token: TokenType | null;

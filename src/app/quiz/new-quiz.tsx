@@ -55,7 +55,7 @@ export default function NewQuiz() {
       { label: 'Politics', value: 'politics' },
       { label: 'General Knowledge', value: 'general' },
     ],
-    [],
+    []
   );
 
   const numberOfQuestions = React.useMemo(
@@ -65,7 +65,7 @@ export default function NewQuiz() {
       { label: '50', value: 50 },
       { label: '100', value: 100 },
     ],
-    [],
+    []
   );
 
   const difficulties = React.useMemo(
@@ -74,7 +74,7 @@ export default function NewQuiz() {
       { label: 'Medium', value: 'medium' },
       { label: 'Hard', value: 'hard' },
     ],
-    [],
+    []
   );
 
   const onSelect = React.useCallback(
@@ -83,7 +83,7 @@ export default function NewQuiz() {
       setCustomTopic('');
       modal.dismiss();
     },
-    [modal],
+    [modal]
   );
 
   const onSelectNumber = React.useCallback(
@@ -91,7 +91,7 @@ export default function NewQuiz() {
       setQuestionsNumber(option);
       modal2.dismiss();
     },
-    [modal2],
+    [modal2]
   );
 
   const onSelectDifficulty = React.useCallback(
@@ -99,7 +99,7 @@ export default function NewQuiz() {
       setDifficulty(option);
       modal3.dismiss();
     },
-    [modal3],
+    [modal3]
   );
 
   const handleStartQuiz = async () => {
@@ -127,7 +127,7 @@ export default function NewQuiz() {
 
       const jsonResponse = JSON.stringify(response);
       const parseResponse = JSON.parse(
-        jsonResponse.replace('```json', '').replace('```', ''),
+        jsonResponse.replace('```json', '').replace('```', '')
       );
 
       const parsedData = JSON.parse(parseResponse as string) as QuizDatatype;
@@ -135,7 +135,7 @@ export default function NewQuiz() {
 
       setIsLoading(false);
       router.push({
-        pathname: `/quiz/[topic]`,
+        pathname: '/quiz/[topic]',
         params: {
           topic:
             topic.toLowerCase().replace(/\s/g, '-') ||

@@ -7,7 +7,7 @@ const supabaseUrl = 'https://cgkwzgucgbhzevahlpqg.supabase.co';
 const supabaseAnonKey =
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNna3d6Z3VjZ2JoemV2YWhscHFnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzI4MDQyNTYsImV4cCI6MjA0ODM4MDI1Nn0.hS7TdaQlBCSlWlhp51cz1kTU5rMU9kb_9j3FRPdmY5o';
 
-
+  
 export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
   auth: {
     storage: AsyncStorage,

@@ -19,5 +19,5 @@ type RecursiveKeyOfHandleValue<
 > = TValue extends any[]
   ? Text
   : TValue extends object
-  ? Text | `${Text}${RecursiveKeyOfInner<TValue>}`
-  : Text;
+    ? Text | `${Text}${RecursiveKeyOfInner<TValue>}`
+    : Text;

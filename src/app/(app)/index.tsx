@@ -1,11 +1,7 @@
 import { useRouter } from 'expo-router';
 import React from 'react';
 
-import {
-  Button,
-  FocusAwareStatusBar,
-  Text,
-  View } from '@/components/ui';
+import { Button, FocusAwareStatusBar, Text, View } from '@/components/ui';
 import Quiz from '@/components/ui/icons/quiz';
 
 export default function Home() {

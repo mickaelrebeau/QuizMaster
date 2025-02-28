@@ -9,7 +9,7 @@ import { translate, useAuth } from '@/lib';
 
 export default function Signup() {
   const router = useRouter();
-  const signUp = useAuth.use.signUp(); 
+  const signUp = useAuth.use.signUp();
 
   const onSubmit: SignupFormProps['onSubmit'] = async (data) => {
     console.log(data);
@@ -20,12 +20,12 @@ export default function Signup() {
         type: 'success',
       });
       router.push('/login');
-    } catch (error) { 
+    } catch (error) {
       showMessage({
         message: translate('signup.message-fail'),
         type: 'danger',
       });
-    } 
+    }
   };
 
   return (
