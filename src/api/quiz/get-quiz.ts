@@ -51,7 +51,6 @@ Constraints:
 - Avoid repeating answers.
 - Align the difficulty of the questions with the specified level (e.g., "easy" questions should be straightforward, "hard" questions should be more challenging).
 - Keep the questions engaging and accurate based on the topic.
-- The correct answer should not to be in the incorrect answers list. Make sure of this point is accurate.
 
 Example Input:
 - Topic: "Capitals"
