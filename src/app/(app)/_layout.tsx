@@ -49,7 +49,9 @@ export default function TabLayout() {
         options={{
           title: 'Settings',
           headerShown: false,
-          tabBarIcon: ({ color }: { color: string }) => <SettingsIcon color={color} />,
+          tabBarIcon: ({ color }: { color: string }) => (
+            <SettingsIcon color={color} />
+          ),
           tabBarButtonTestID: 'settings-tab',
         }}
       />
